@@ -6,7 +6,7 @@ const database_name = "Reactoffline.db";
 const database_version = "1.0";
 const database_displayname = "SQLite React Offline Database";
 const database_Size = 200000;
-const shoppinlist =[];
+const shoppinlist = [];
 
 export default class Database {
   initDB() {
@@ -71,11 +71,10 @@ export default class Database {
     }
   }
 
-
   getItem() {
-      const finalShoppingList = [];
-      this.listItem(finalShoppingList);
-      return finalShoppingList;
+    const finalShoppingList = [];
+    this.listItem(finalShoppingList);
+    return finalShoppingList;
   }
 
   listItem_a() {
@@ -84,20 +83,21 @@ export default class Database {
       this.initDB()
         .then(db => {
           db.transaction(tx => {
-            tx.executeSql("SELECT s.id, s.itemName  FROM ShoppingList s", []).then(
-              ([tx, results]) => {
-                console.log("Query completed");
-                var len = results.rows.length;
-                for (let i = 0; i < len; i++) {
-                  let row = results.rows.item(i);
-                  shoppingList.push({id: row.id,itemName:row.itemName});
-                  console.log(`Item ID: ${row.id}, Item Name: ${row.itemName}`);
-                }
-                console.log('The actual list is');
-                console.log(shoppingList);
-                resolve(shoppingList);
+            tx.executeSql(
+              "SELECT s.id, s.itemName  FROM ShoppingList s",
+              []
+            ).then(([tx, results]) => {
+              console.log("Query completed");
+              var len = results.rows.length;
+              for (let i = 0; i < len; i++) {
+                let row = results.rows.item(i);
+                shoppingList.push({ id: row.id, itemName: row.itemName });
+                console.log(`Item ID: ${row.id}, Item Name: ${row.itemName}`);
               }
-            );
+              console.log("The actual list is");
+              console.log(shoppingList);
+              resolve(shoppingList);
+            });
           })
             .then(result => {
               this.closeDatabase(db);
@@ -118,23 +118,24 @@ export default class Database {
       this.initDB()
         .then(db => {
           db.transaction(tx => {
-            tx.executeSql("SELECT s.id, s.itemName  FROM ShoppingList s", []).then(
-              ([tx, results]) => {
-                console.log("Query completed");
-                var len = results.rows.length;
-                for (let i = 0; i < len; i++) {
-                  let row = results.rows.item(i);
-                  console.log(`Item ID: ${row.id}, Item Name: ${row.itemName}`);
-                  const { id, itemName } = row;
-                  shoppingList.push({
-                    id,
-                    itemName
-                  });
-                }
-                console.log(shoppingList);
-                resolve(shoppingList);
+            tx.executeSql(
+              "SELECT s.id, s.itemName  FROM ShoppingList s",
+              []
+            ).then(([tx, results]) => {
+              console.log("Query completed");
+              var len = results.rows.length;
+              for (let i = 0; i < len; i++) {
+                let row = results.rows.item(i);
+                console.log(`Item ID: ${row.id}, Item Name: ${row.itemName}`);
+                const { id, itemName } = row;
+                shoppingList.push({
+                  id,
+                  itemName
+                });
               }
-            );
+              console.log(shoppingList);
+              resolve(shoppingList);
+            });
           })
             .then(result => {
               this.closeDatabase(db);
@@ -148,8 +149,6 @@ export default class Database {
         });
     });
   }
-
-
 
   itemById(id) {
     console.log(id);
@@ -181,8 +180,8 @@ export default class Database {
   }
 
   addItem(itemName) {
-      console.log('................................item name coming soon');
-      console.log(itemName);
+    console.log("................................item name coming soon");
+    console.log(itemName);
     return new Promise(resolve => {
       this.initDB()
         .then(db => {
@@ -233,6 +232,7 @@ export default class Database {
   }
 
   deleteItem(id) {
+    console.log("Now inside deleteItem :" + id)
     return new Promise(resolve => {
       this.initDB()
         .then(db => {
