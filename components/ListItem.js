@@ -1,12 +1,14 @@
 import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import Icon from 'react-native-vector-icons/dist/MaterialIcons'
+
 const ListItem = ({ item , deleteItem }) => {
   return (
     <TouchableOpacity style={styles.list}>
       <View style={styles.view}>
-        <Text style={styles.text}>{item.text}</Text>
+        <Text style={styles.text}>{item}</Text>
         <Icon name='delete' size={20} color="firebrick" onPress={() => deleteItem(item.id)}/>
+        {console.log(item.id)}
       </View>
     </TouchableOpacity>
   );
